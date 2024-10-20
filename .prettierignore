@@ -1,0 +1,34 @@
+# Ignore build and output directories
+node_modules/
+out/
+.build/
+.cache/
+dist/
+
+# Ignore Next.js configuration files
+next.config.js
+
+# Ignore static files directory
+public/
+
+# Ignore test files
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+
+# Ignore configuration files
+**/*.config.js
+**/*.config.ts
+
+# Ignore generated files (e.g., GraphQL codegen output)
+**/__generated__/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore .gitignored files
+**/.gitignored
+
+# Ignore Docker files (if using Docker)
+Dockerfile
+docker-compose.yml
