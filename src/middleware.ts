@@ -1,25 +1,24 @@
-//@ts-ignore: depricated authMiddleware usage
-import { authMiddleware, clerkClient } from "@clerk/nextjs/server"
+import { ClerkMiddlewareAuth, clerkMiddleware } from "@clerk/nextjs/server"
 import { NextRequest, NextResponse } from "next/server"
 
-const publicRoutes = ["/", "/sign-in", "/sign-up"]
+const publicRoutes = ["/sign-in", "/sign-up"]
 
-export default authMiddleware({
-    publicRoutes,
-    async afterAuth(auth: { userId: string }, req: NextRequest) {
-        // not authenticated & trying to access private routes
-        if (!auth.userId && !publicRoutes.includes(req.nextUrl.pathname))
-            return NextResponse.redirect(new URL("/sign-in", req.url))
+export default clerkMiddleware(
+    async (auth: ClerkMiddlewareAuth, req: NextRequest) => {
+        try {
+            const { userId, sessionClaims } = await auth()
 
-        if (auth.userId) {
-            try {
-                const user = await (clerkClient as any).users.getUser(
-                    auth.userId
-                )
-                const role = user.publicMetadata.role as string | undefined
+            const role = sessionClaims?.roleMetadata.role
 
+            if (!userId && !publicRoutes.includes(req.nextUrl.pathname)) {
+                return NextResponse.redirect(new URL("/sign-in", req.url))
+            }
+
+            if (userId) {
                 if (role === "admin" && req.nextUrl.pathname === "/dashboard") {
-                    return NextResponse.redirect(new URL("/dashboard", req.url))
+                    return NextResponse.redirect(
+                        new URL("/admin/dashboard", req.url)
+                    )
                 }
 
                 if (
@@ -39,13 +38,13 @@ export default authMiddleware({
                         )
                     )
                 }
-            } catch (error: any) {
-                console.error("Error while fetching user: ", error)
-                return NextResponse.redirect(new URL("/sign-in", req.url))
             }
+        } catch (error) {
+            console.error("Error while fetching user: ", error)
+            return NextResponse.redirect(new URL("/sign-in", req.url))
         }
-    },
-})
+    }
+)
 
 export const config = {
     matcher: [
