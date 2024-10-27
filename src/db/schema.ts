@@ -6,8 +6,9 @@ export const users = t.pgTable("users", {
         .uuid()
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
-    username: t.varchar("username", { length: 50 }).notNull(),
     email: t.varchar("email", { length: 100 }).notNull().unique(),
+    subscribtionEnds: t.date("date", { mode: "date" }),
+    isSubscribed: t.boolean().default(false),
 })
 
 export const userRelation = relations(users, ({ many }) => ({
@@ -21,7 +22,10 @@ export const todos = t.pgTable("todos", {
         .$defaultFn(() => crypto.randomUUID()),
     title: t.varchar("title", { length: 100 }).notNull(),
     content: t.varchar("content", { length: 1000 }).notNull(),
-    userId: t.uuid().notNull(),
+    completed: t.boolean().default(false),
+    userId: t.uuid("user_id").notNull(),
+    createdAt: t.timestamp("created_at").defaultNow(),
+    updatedAt: t.timestamp("updated_at").defaultNow(),
 })
 
 export const todoRelation = relations(todos, ({ one }) => ({
@@ -30,3 +34,9 @@ export const todoRelation = relations(todos, ({ one }) => ({
         references: [users.id],
     }),
 }))
+
+export type InsertUser = typeof users.$inferInsert
+export type SelectUser = typeof users.$inferSelect
+
+export type InsertTodo = typeof todos.$inferInsert
+export type SelectTodo = typeof todos.$inferSelect
