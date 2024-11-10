@@ -1,4 +1,5 @@
 "use client"
+
 import { useSignIn } from "@clerk/nextjs"
 import { FormEvent } from "react"
 import { useRouter } from "next/navigation"
@@ -22,7 +23,7 @@ interface SignUpFormCredentails {
     password: string
 }
 
-export default function SignUp() {
+export default function SignIn() {
     const { isLoaded, signIn, setActive } = useSignIn()
     const [credentials, setCredentials] = useState<SignUpFormCredentails>({
         emailAddress: "",
@@ -37,6 +38,7 @@ export default function SignUp() {
     }
 
     async function submit(e: FormEvent) {
+        setError("")
         e.preventDefault()
         if (!isLoaded) return
 

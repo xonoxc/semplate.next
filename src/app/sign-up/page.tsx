@@ -1,4 +1,5 @@
 "use client"
+
 import { useSignUp } from "@clerk/nextjs"
 import { FormEvent } from "react"
 import { useRouter } from "next/navigation"
@@ -40,6 +41,7 @@ export default function SignUp() {
     }
 
     async function submit(e: FormEvent) {
+        setError("")
         e.preventDefault()
         if (!isLoaded) return
 
@@ -51,6 +53,10 @@ export default function SignUp() {
 
         try {
             await signUp.create({ emailAddress, password })
+
+            await signUp.prepareEmailAddressVerification({
+                strategy: "email_code",
+            })
 
             setPendingVerification(true)
         } catch (err: any) {
@@ -64,11 +70,13 @@ export default function SignUp() {
         if (!isLoaded) return
 
         try {
+            console.log("before sending...")
             const completeSignUp = await signUp.attemptEmailAddressVerification(
                 {
                     code,
                 }
             )
+            console.log("completeSignUp", completeSignUp)
 
             if (completeSignUp.status !== "complete")
                 console.error(JSON.stringify(completeSignUp, null, 2))
