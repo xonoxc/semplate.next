@@ -1,6 +1,4 @@
-"use client"
-
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { InsertTodo } from "@/db/schema"
 import { Button } from "@/components/ui/button"
 import { Trash2, CheckCircle, XCircle } from "lucide-react"
@@ -23,11 +21,11 @@ export function TodoItem({
         todo.completed || false
     )
 
-    const toggleComplete = async () => {
+    const toggleComplete = useCallback(async () => {
         const newCompletedState = !isCompleted
         setIsCompleted(newCompletedState)
         onUpdate(todo.id as string, newCompletedState)
-    }
+    }, [])
 
     return (
         <Card>
