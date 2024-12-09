@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get("search")
 
     try {
-        const [results] = await db
+        const results = await db
             .select()
             .from(todos)
             .orderBy(desc(todos.createdAt))
@@ -62,8 +62,6 @@ export async function POST(req: NextRequest) {
         .from(users)
         .leftJoin(todos, eq(users.id, todos.userId))
         .where(eq(users.id, userId))
-
-    console.log("User", results[0].user)
 
     if (!results[0].user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 })

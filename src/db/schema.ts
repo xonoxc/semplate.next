@@ -2,10 +2,7 @@ import { relations } from "drizzle-orm"
 import * as t from "drizzle-orm/pg-core"
 
 export const users = t.pgTable("users", {
-    id: t
-        .uuid()
-        .primaryKey()
-        .$defaultFn(() => crypto.randomUUID()),
+    id: t.varchar("id", { length: 255 }).notNull(),
     email: t.varchar("email", { length: 100 }).notNull().unique(),
     subscribtionEnds: t.date("date", { mode: "date" }),
     isSubscribed: t.boolean().default(false),
@@ -21,9 +18,9 @@ export const todos = t.pgTable("todos", {
         .primaryKey()
         .$defaultFn(() => crypto.randomUUID()),
     title: t.varchar("title", { length: 100 }).notNull(),
-    content: t.varchar("content", { length: 1000 }).notNull(),
+    content: t.varchar("content", { length: 1000 }).default(""),
     completed: t.boolean().default(false),
-    userId: t.uuid("user_id").notNull(),
+    userId: t.varchar("user_id", { length: 255 }).notNull(),
     createdAt: t.timestamp("created_at").defaultNow(),
     updatedAt: t.timestamp("updated_at").defaultNow(),
 })

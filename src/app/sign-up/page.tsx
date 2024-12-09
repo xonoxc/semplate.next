@@ -70,13 +70,11 @@ export default function SignUp() {
         if (!isLoaded) return
 
         try {
-            console.log("before sending...")
             const completeSignUp = await signUp.attemptEmailAddressVerification(
                 {
                     code,
                 }
             )
-            console.log("completeSignUp", completeSignUp)
 
             if (completeSignUp.status !== "complete")
                 console.error(JSON.stringify(completeSignUp, null, 2))

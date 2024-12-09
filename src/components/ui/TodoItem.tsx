@@ -23,8 +23,8 @@ export function TodoItem({
 
     const toggleComplete = useCallback(async () => {
         const newCompletedState = !isCompleted
-        setIsCompleted(newCompletedState)
         onUpdate(todo.id as string, newCompletedState)
+        setIsCompleted(newCompletedState)
     }, [])
 
     return (

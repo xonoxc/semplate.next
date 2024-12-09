@@ -30,7 +30,7 @@ export async function PUT(
             )
         }
 
-        if (todo.userId === userId) {
+        if (todo.userId !== userId) {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 })
         }
 
@@ -73,7 +73,7 @@ export async function DELETE(
             )
         }
 
-        if (todo.userId === userId) {
+        if (todo.userId !== userId) {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 })
         }
 

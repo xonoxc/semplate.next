@@ -12,7 +12,7 @@ export async function POST() {
     }
 
     try {
-        const user = await db.select().from(users).where(eq(users.id, userId))
+        const [user] = await db.select().from(users).where(eq(users.id, userId))
 
         if (!user) {
             return NextResponse.json(
@@ -69,8 +69,6 @@ export async function GET() {
                 { status: 404 }
             )
         }
-
-        console.log("user", user)
 
         const now = new Date()
 

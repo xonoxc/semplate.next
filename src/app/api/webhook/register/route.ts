@@ -57,11 +57,10 @@ export async function POST(req: Request) {
                 return new Response("No primary email found", { status: 400 })
             }
 
-            const newUser = await db.insert(users).values({
+            await db.insert(users).values({
+                id: evt.data.id!,
                 email: primaryEmail.email_address,
             })
-
-            console.log("newly created user", newUser)
         } catch (err) {
             console.error("Error creating user in database:", err)
             return new Response("Error creating user", { status: 500 })

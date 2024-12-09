@@ -40,7 +40,6 @@ export default clerkMiddleware(
                 }
             }
         } catch (error) {
-            console.error("Error while fetching user: ", error)
             return NextResponse.redirect(new URL("/sign-in", req.url))
         }
     }

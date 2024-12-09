@@ -17,7 +17,7 @@ import { useDebounceValue } from "usehooks-ts"
 export default function Dashboard() {
     const { user } = useUser()
     const { toast } = useToast()
-    const [todos, setTodos] = useState<InsertTodo[]>([])
+    const [todos, setTodos] = useState<InsertTodo[] | []>([])
     const [isSubscribed, setIsSubscribed] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
@@ -163,7 +163,7 @@ export default function Dashboard() {
                     <TodoForm onSubmit={title => handleAddTodo(title)} />
                 </CardContent>
             </Card>
-            {!isSubscribed && todos.length >= 3 && (
+            {!isSubscribed && todos?.length >= 3 && (
                 <Alert variant="destructive" className="mb-8">
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
@@ -194,14 +194,14 @@ export default function Dashboard() {
                         <p className="text-center text-muted-foreground">
                             Loading your todos...
                         </p>
-                    ) : todos.length === 0 ? (
+                    ) : todos?.length === 0 ? (
                         <p className="text-center text-muted-foreground">
                             You don&apos;t have any todos yet. Add one above!
                         </p>
                     ) : (
                         <>
                             <ul className="space-y-4">
-                                {todos.map((todo: InsertTodo) => (
+                                {todos?.map((todo: InsertTodo) => (
                                     <TodoItem
                                         key={todo.id}
                                         todo={todo}
