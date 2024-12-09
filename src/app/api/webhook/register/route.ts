@@ -48,19 +48,16 @@ export async function POST(req: Request) {
     if (eventType === "user.created") {
         try {
             const { email_addresses, primary_email_address_id } = evt.data
-            console.log(evt.data)
 
             const primaryEmail = email_addresses.find(
                 email => email.id === primary_email_address_id
             )
 
             if (!primaryEmail) {
-                console.error("No primary email found")
                 return new Response("No primary email found", { status: 400 })
             }
 
             const newUser = await db.insert(users).values({
-                id: evt.data.id!,
                 email: primaryEmail.email_address,
             })
 
