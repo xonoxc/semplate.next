@@ -28,9 +28,11 @@ export function TodoItem({
     }, [])
 
     return (
-        <Card>
+        <Card className="bg-zinc-800 border-zinc-700">
             <CardContent className="flex items-center justify-between p-4">
-                <span className={isCompleted ? "line-through" : ""}>
+                <span
+                    className={`${isCompleted ? "line-through text-zinc-500" : "text-white"}`}
+                >
                     {todo.title}
                 </span>
                 <div className="flex items-center space-x-2">
@@ -38,6 +40,7 @@ export function TodoItem({
                         variant="outline"
                         size="sm"
                         onClick={toggleComplete}
+                        className="bg-zinc-700 text-zinc-300 hover:bg-zinc-600 hover:text-white border-zinc-600"
                     >
                         {isCompleted ? (
                             <XCircle className="mr-2 h-4 w-4" />
@@ -50,12 +53,13 @@ export function TodoItem({
                         variant="destructive"
                         size="sm"
                         onClick={() => onDelete(todo.id as string)}
+                        className="bg-red-900 text-white hover:bg-red-800"
                     >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete
                     </Button>
                     {isAdmin && (
-                        <span className="ml-2 text-sm text-muted-foreground">
+                        <span className="ml-2 text-sm text-zinc-400">
                             User ID: {todo.userId}
                         </span>
                     )}

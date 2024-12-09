@@ -21,7 +21,7 @@ export function Pagination({
             >
                 Previous
             </Button>
-            <span className="flex items-center">
+            <span className="flex items-center text-white">
                 Page {currentPage} of {totalPages}
             </span>
             <Button

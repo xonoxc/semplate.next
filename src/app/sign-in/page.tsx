@@ -67,17 +67,19 @@ export default function SignIn() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-background">
-            <Card className="w-full max-w-md">
+        <div className="flex items-center justify-center min-h-screen bg-black text-white">
+            <Card className="w-full max-w-md bg-zinc-900 border-zinc-800">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-center">
-                        Sign In to Todo Master
+                    <CardTitle className="text-2xl font-bold text-center text-white">
+                        Sign In
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={submit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email" className="text-zinc-300">
+                                Email
+                            </Label>
                             <Input
                                 type="email"
                                 id="email"
@@ -89,10 +91,13 @@ export default function SignIn() {
                                     }))
                                 }
                                 required
+                                className="bg-zinc-800 border-zinc-700 text-white"
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-zinc-300">
+                                Password
+                            </Label>
                             <div className="relative">
                                 <Input
                                     type={showPassword ? "text" : "password"}
@@ -105,6 +110,7 @@ export default function SignIn() {
                                         }))
                                     }
                                     required
+                                    className="bg-zinc-800 border-zinc-700 text-white"
                                 />
                                 <button
                                     type="button"
@@ -114,29 +120,35 @@ export default function SignIn() {
                                     className="absolute right-2 top-1/2 -translate-y-1/2"
                                 >
                                     {showPassword ? (
-                                        <EyeOff className="h-4 w-4 text-gray-500" />
+                                        <EyeOff className="h-4 w-4 text-zinc-400" />
                                     ) : (
-                                        <Eye className="h-4 w-4 text-gray-500" />
+                                        <Eye className="h-4 w-4 text-zinc-400" />
                                     )}
                                 </button>
                             </div>
                         </div>
                         {error && (
-                            <Alert variant="destructive">
+                            <Alert
+                                variant="destructive"
+                                className="bg-red-900 border-red-800 text-white"
+                            >
                                 <AlertDescription>{error}</AlertDescription>
                             </Alert>
                         )}
-                        <Button type="submit" className="w-full">
+                        <Button
+                            type="submit"
+                            className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+                        >
                             Sign In
                         </Button>
                     </form>
                 </CardContent>
                 <CardFooter className="justify-center">
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-zinc-400">
                         Don&apos;t have an account?{" "}
                         <Link
                             href="/sign-up"
-                            className="font-medium text-primary hover:underline"
+                            className="font-medium text-purple-400 hover:text-purple-300 hover:underline"
                         >
                             Sign up
                         </Link>

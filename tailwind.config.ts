@@ -55,7 +55,21 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+        zinc: {
+          800: '#27272a',
+          900: '#18181b',
+        },
+        purple: {
+          600: '#9333ea',
+          700: '#7e22ce',
+          900: '#581c87',
+        },
+        indigo: {
+          600: '#4f46e5',
+          700: '#4338ca',
+          900: '#312e81',
+        },
   	}
   },
   plugins: [require("tailwindcss-animate")],

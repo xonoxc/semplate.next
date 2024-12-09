@@ -151,26 +151,29 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="container mx-auto p-4 max-w-3xl mb-8">
-            <h1 className="text-3xl font-bold mb-8 text-center">
+        <div className="container mx-auto p-4 max-w-3xl mb-8 bg-black text-white">
+            <h1 className="text-3xl font-bold mb-8 text-center text-white">
                 Welcome, {user?.emailAddresses[0].emailAddress}!
             </h1>
-            <Card className="mb-8">
+            <Card className="mb-8 bg-zinc-900 border-zinc-800">
                 <CardHeader>
-                    <CardTitle>Add New Todo</CardTitle>
+                    <CardTitle className="text-white">Add New Todo</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <TodoForm onSubmit={title => handleAddTodo(title)} />
                 </CardContent>
             </Card>
             {!isSubscribed && todos?.length >= 3 && (
-                <Alert variant="destructive" className="mb-8">
+                <Alert
+                    variant="destructive"
+                    className="mb-8 bg-red-900 border-red-800"
+                >
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
                         You&apos;ve reached the maximum number of free todos.{" "}
                         <Link
                             href="/subscribe"
-                            className="font-medium underline"
+                            className="font-medium underline text-purple-400 hover:text-purple-300"
                         >
                             Subscribe now
                         </Link>{" "}
@@ -178,9 +181,9 @@ export default function Dashboard() {
                     </AlertDescription>
                 </Alert>
             )}
-            <Card>
+            <Card className="bg-zinc-900 border-zinc-800">
                 <CardHeader>
-                    <CardTitle>Your Todos</CardTitle>
+                    <CardTitle className="text-white">Your Todos</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Input
@@ -188,14 +191,14 @@ export default function Dashboard() {
                         placeholder="Search todos..."
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
-                        className="mb-4"
+                        className="mb-4 bg-zinc-800 border-zinc-700 text-white placeholder-zinc-400"
                     />
                     {isLoading ? (
-                        <p className="text-center text-muted-foreground">
+                        <p className="text-center text-zinc-400">
                             Loading your todos...
                         </p>
                     ) : todos?.length === 0 ? (
-                        <p className="text-center text-muted-foreground">
+                        <p className="text-center text-zinc-400">
                             You don&apos;t have any todos yet. Add one above!
                         </p>
                     ) : (
