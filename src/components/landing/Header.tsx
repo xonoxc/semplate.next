@@ -1,3 +1,4 @@
+import { Logo } from "@/components/Logo"
 import Link from "next/link"
 
 export default function Header() {
@@ -9,14 +10,7 @@ export default function Header() {
             >
                 <div className="w-full py-6 flex items-center justify-between border-b border-indigo-500 lg:border-none">
                     <div className="flex items-center">
-                        <Link href="/">
-                            <span className="sr-only">Your Company</span>
-                            <img
-                                className="h-10 w-auto"
-                                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                                alt=""
-                            />
-                        </Link>
+                        <Logo />
                         <div className="hidden ml-10 space-x-8 lg:block">
                             <Link
                                 href="#features"

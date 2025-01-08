@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { ChevronDown, Menu, X, Check, ChevronUp } from "lucide-react"
+import { ChevronDown, Menu, X, ChevronUp } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {
