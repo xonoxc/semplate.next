@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Semplate.next
+
+A modern SaaS template built with the latest tools and frameworks:
+
+
+- **[Next.js 14](https://nextjs.org/)** for a robust and scalable React framework.
+- **[Clerk](https://clerk.dev/)** for seamless user authentication and management.
+- **[Drizzle ORM](https://orm.drizzle.team/)** for type-safe and performant database operations.
+- **[NeonDB](https://neon.tech/)** as the database backend for your application.
+- Webhook integration for handling external events in real time.
+
+## Features
+
+- **Authentication:** Secure and flexible user authentication powered by Clerk.
+- **Database:** NeonDB with Drizzle ORM for structured and type-safe data handling.
+- **Next.js 14:** Featuring server actions and other cutting-edge features for server and client integration.
+- **Webhooks:** Easily configurable webhook support to listen to and process external events.
+- **Scalability:** Designed with scalability and maintainability in mind, making it an excellent starting point for SaaS products.
+
+## Prerequisites
+
+Before setting up the project, ensure you have the following installed:
+
+- Node.js (v18 or later)
+- pnpm or npm or bun (bun is recommended)
+- NeonDB account
+- Clerk account
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up and run the project locally:
+
+### 1. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/xonoxc/semplate.next.git
+cd semplate.next
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install all required dependencies using `pnpm` or `npm` or `bun`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Using pnpm
+pnpm install
 
-## Learn More
+# OR using npm
+npm install
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# OR using bun
+bun install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. Configure Environment Variables
 
-## Deploy on Vercel
+Create a `.env` file in the root of the project and add the following variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+# NeonDB Configuration
+DATABASE_URL=postgresql://<username>:<password>@<host>/<database>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Clerk Configuration
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your_clerk_frontend_api>
+CLERK_SECRET_KEY=<your_clerk_api_key>
+
+# Webhooks
+WEBHOOK_SECRET=<your_webhook_secret>
+```
+
+> Replace `<username>`, `<password>`, `<host>`, `<database>`, and other placeholders with your actual configuration.
+
+### 4. Set Up Database
+
+Run migrations using Drizzle ORM:
+
+```bash
+pnpm drizzle:sync
+```
+
+> Ensure that the `DATABASE_URL` in `.env` is correctly configured.
+
+### 5. Run the Development Server
+
+Start the development server:
+
+```bash
+pnpm dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to view your application.
+
+## Project Structure
+
+```plaintext
+
+src/
+├── app/               # Next.js application code (contain api and frontend)
+├── components/        # UI components
+├── db/                # db configuration 
+├── hooks/             # hooks 
+├── lib/               # Reusable libraries 
+├── types/             # type definitions
+└── middleware.ts      # application middleware
+
+```
+
+## Deployment
+
+The application is optimized for deployment on platforms like Vercel.
+
+### Steps:
+
+1. Ensure environment variables are configured in your hosting platform.
+2. Build the project:
+
+   ```bash
+   pnpm build
+
+   # or with bun
+   bun build
+   ```
+
+3. Deploy to Vercel or spin up a vps (Vercel is recommended) .
+
+## Webhook Integration
+
+To add a new webhook:
+
+1. Define a webhook handler in `src/app/api/webhooks/`.
+2. Add the necessary secret keys and event configurations in a `.env`.
+
+## Contributing
+
+Contributions are welcome!.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
